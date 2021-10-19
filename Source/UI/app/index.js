@@ -1,16 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { addItem, getAllItems, removeItem } from '../api/server_helper';
 import './index.css';
 
 const App = () => {
 
+
+    useEffect(() => {
+
+    });
+
+    useEffect(() => {
+        (async () => {
+            var items = await getAllItems();
+            setList(items);
+        })()
+
+    }, [])
+
+
     const [list, setList] = useState([]);
-    const [message, setMessage] = useState('');
+    const [task, setTask] = useState('');
 
     const addTask = () => {
-        const newList = list.concat({ Message: message, IsSelected: false });
+        const newList = list.concat({ Task: task, IsSelected: false });
         setList(newList);
-        setMessage('');
+        setTask('');
+        // addItem({ "Id": newId, "Task": task });
     }
 
     const removeTask = () => {
@@ -41,7 +57,7 @@ const App = () => {
             key={index}
             onClick={handleListItemClick}
         >
-            {item.Message}
+            {item.Task}
         </li>
     ));
 
@@ -50,8 +66,8 @@ const App = () => {
             <input
                 type="text"
                 id="taskMessage"
-                value={message}
-                onChange={(val) => { setMessage(val.target.value) }} />
+                value={task}
+                onChange={(val) => { setTask(val.target.value) }} />
 
             <button id="addButton" onClick={addTask}> Add Button </button>
 

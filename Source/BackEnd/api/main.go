@@ -1,9 +1,12 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+
+	"github.com/gorilla/handlers"
 )
 
 type App struct {
@@ -48,7 +51,6 @@ func getTaskByID(c *gin.Context) {
 
 func postTask(c *gin.Context) {
 	var newTask task
-
 	if err := c.BindJSON(&newTask); err != nil {
 		return
 	}
@@ -65,5 +67,10 @@ func main() {
 
 	a.Initialize()
 
-	a.Router.Run("localhost:8080")
+	credentials := handlers.AllowCredentials()
+	methods := handlers.AllowedMethods([]string{"GET", "POST", "OPTIONS"})
+	origins := handlers.AllowedOrigins([]string{"http://localhost:9000", "http://localhost:9000/"})
+	headers := handlers.AllowedHeaders([]string{"*"})
+	log.Fatal(http.ListenAndServe(":3000", handlers.CORS(credentials, methods, origins, headers)(a.Router)))
+
 }
