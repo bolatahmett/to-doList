@@ -68,9 +68,9 @@ func main() {
 	a.Initialize()
 
 	credentials := handlers.AllowCredentials()
-	methods := handlers.AllowedMethods([]string{"GET", "POST", "OPTIONS"})
-	origins := handlers.AllowedOrigins([]string{"http://localhost:9000", "http://localhost:9000/"})
-	headers := handlers.AllowedHeaders([]string{"*"})
+	methods := handlers.AllowedMethods([]string{"GET", "POST", "HEAD"})
+	origins := handlers.AllowedOrigins([]string{"*"})
+	headers := handlers.AllowedHeaders([]string{"Content-Type", "Authorization"})
 	log.Fatal(http.ListenAndServe(":3000", handlers.CORS(credentials, methods, origins, headers)(a.Router)))
 
 }

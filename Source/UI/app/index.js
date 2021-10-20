@@ -2,13 +2,9 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { addItem, getAllItems, removeItem } from '../api/server_helper';
 import './index.css';
+import { v4 as uuidv4 } from 'uuid';
 
 const App = () => {
-
-
-    useEffect(() => {
-
-    });
 
     useEffect(() => {
         (async () => {
@@ -23,10 +19,14 @@ const App = () => {
     const [task, setTask] = useState('');
 
     const addTask = () => {
-        const newList = list.concat({ Task: task, IsSelected: false });
-        setList(newList);
-        setTask('');
-        // addItem({ "Id": newId, "Task": task });
+        const id = uuidv4();
+        addItem({ Id: id, Task: task }).then(() => {
+            const newList = list.concat({ Id: id, Task: task, IsSelected: false });
+            setList(newList);
+            setTask('');
+        }).catch(() => {
+            console.log("Task can not added to the list");
+        });
     }
 
     const removeTask = () => {
