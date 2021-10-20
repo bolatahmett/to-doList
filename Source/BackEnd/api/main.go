@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"github.com/gin-contrib/location"
 	"github.com/gorilla/handlers"
 )
 
@@ -26,7 +27,9 @@ var tasks = []task{
 
 func (a *App) Initialize() {
 	a.Router = gin.Default()
-
+	a.Router.Use(location.New(location.Config{
+		Host: "0.0.0.0",
+	}))
 	a.Router.GET("/task", getTasks)
 	a.Router.GET("/task/:id", getTaskByID)
 	a.Router.POST("/task", postTask)

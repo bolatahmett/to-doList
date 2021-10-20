@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack",
     "start": "webpack serve --open --config webpack.config.js",
+    "start-in_container": "webpack serve --open --config webpack.config.js --host 0.0.0.0",
     "test": "cypress open",
     "run-test": "cypress run"
   },

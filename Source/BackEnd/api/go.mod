@@ -7,6 +7,7 @@ require github.com/gin-gonic/gin v1.7.4
 require github.com/felixge/httpsnoop v1.0.1 // indirect
 
 require (
+	github.com/gin-contrib/location v0.0.2
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.13.0 // indirect
 	github.com/go-playground/universal-translator v0.17.0 // indirect
