@@ -1,5 +1,9 @@
 # Client
 
+Technologies:
+
+    React, javascript, webpack, nodejs, cypress
+
 Run with source code:
 
     npm start: Running client (http://localhost:9000)
@@ -23,5 +27,5 @@ kubectl expose deployment client --type=NodePort --port=9000 | add deployment
 kubectl get services client | create service
 kubectl port-forward service/client 9000:9000 | forward your port
 
-Test: curl http://localhost:9000
+Test: curl <http://localhost:9000>
 ![Alt Text](../Kubernates/client.gif)
