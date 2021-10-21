@@ -23,3 +23,4 @@ Usefull links:
     https://learntdd.in/react/
     https://golang.org/doc/tutorial/web-service-gin
     https://docs.docker.com/ci-cd/github-actions/
+    https://farhan-tanvir.medium.com/ci-cd-from-github-to-aws-ec2-using-github-action-e18b621c0507

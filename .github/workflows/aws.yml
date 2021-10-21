@@ -37,4 +37,5 @@ jobs:
             kubectl create deployment server --image=bolatahmett/todo_server:latest
             kubectl expose deployment server --type=NodePort --port=3000
             kubectl get services server
+            minikube kubectl -- get po -A
             kubectl port-forward service/server 3000:3000
