@@ -44,6 +44,6 @@ jobs:
             sleep 20
             minikube kubectl -- get po -A
             sleep 5
-            kubectl port-forward service/server 3000:3000
+            kubectl port-forward service/server 3000:3000 &
             echo "done"
             sleep 5
