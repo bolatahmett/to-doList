@@ -29,8 +29,12 @@ jobs:
             USER_NAME : ${{ secrets.AWS_USER_NAME  }}
             
         run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
-          
-            #Now we have got the access of EC2 and we will start the deploy .
-            ls
+            echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+            ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
+            minikube start
+            alias kubectl="minikube kubectl --"
+            minikube kubectl -- get po -A
+            kubectl create deployment server --image=bolatahmett/todo_server
+            kubectl expose deployment server --type=NodePort --port=9000
+            kubectl get services server
+            kubectl port-forward service/server 9000:9000
