@@ -32,10 +32,16 @@ jobs:
             echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
             ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
             minikube start
+            echo "minikube started"
+            sleep 10
             alias kubectl="minikube kubectl --"
             minikube kubectl -- get po -A
             kubectl create deployment server --image=bolatahmett/todo_server:latest
+            sleep 5
             kubectl expose deployment server --type=NodePort --port=3000
+            sleep 5
             kubectl get services server
+            sleep 5
             minikube kubectl -- get po -A
             kubectl port-forward service/server 3000:3000
+            echo "done"
