@@ -12,8 +12,8 @@ We will Use TDD approach. Used technologies;
 
 You can access docker containers from the docker hub:
 
-    docker push bolatahmett/todo_client:latest
-    docker push bolatahmett/todo_server:latest
+    docker pull bolatahmett/todo_client:latest
+    docker pull bolatahmett/todo_server:latest
 
 Usefull links:
 
