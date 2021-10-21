@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI to Docker Hub - Server
+name: CI to Docker Hub && CI to Aws - Server
 
 # Controls when the workflow will run
 on:
@@ -15,12 +15,12 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
+
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Check Out Repo 
@@ -47,3 +47,36 @@ jobs:
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+
+  # This workflow contains a single job called "build"
+  deployment:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2 
+      - name: Deploy in EC2
+        env:
+            PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
+            HOSTNAME : ${{ secrets.AWS_HOSTNAME  }}
+            USER_NAME : ${{ secrets.AWS_USER_NAME  }}
+            
+        run: |
+            echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+            ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
+            minikube start
+            echo "minikube started"
+            sleep 10
+            alias kubectl="minikube kubectl --"
+            minikube kubectl -- get po -A
+            kubectl create deployment server --image=bolatahmett/todo_server:latest
+            sleep 5
+            kubectl expose deployment server --type=NodePort --port=3000
+            sleep 10
+            kubectl get services server
+            sleep 20
+            minikube kubectl -- get po -A
+            sleep 5
+            kubectl port-forward service/server 3000:3000 &
+            echo "done"
+            sleep 10
