@@ -1,6 +1,6 @@
 # to-do List
 
-We will Use TDD approach.
+We will use TDD approach.
 
 There are two applications, a server and a client. Both applications are hosted on Aws instance with kubernates. The hosting process is as below.
 
@@ -8,8 +8,8 @@ There are two applications, a server and a client. Both applications are hosted 
     2- Running github actions
         a- Dockerize
             -Build and test run in dockerfile
-            -Creating docker image
-            -Upload to docher hub
+            -Create docker image
+            -Upload to docker hub
         b- Deployment
             -Connecting the aws instance
             -Running minikube commands and deploying docker image from hub
@@ -17,17 +17,19 @@ There are two applications, a server and a client. Both applications are hosted 
 Used technologies;
 
     Version control system: Git.
-    Ui: React, nodejs, webpack, cypress 
+    Ui: React, javascript, nodejs, webpack, cypress 
     BackEnd: Golang
     Database: in-memory
-    Hosting: Aws instance
+    Hosting: Aws instance, Kubernates
     Deployment: Git actions
-    Kubernates Deployment: Aws instance, docker hub
 
-You can access docker containers from the docker hub:
+You can access docker containers from the docker hub and run:
 
     docker pull bolatahmett/todo_client:latest
+    docker run -it -p 9000:9000 bolatahmett/todo_client 
+
     docker pull bolatahmett/todo_server:latest
+    docker run -it -p 3000:3000 bolatahmett/todo_server 
 
 Usefull links:
 
