@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: CI to Aws - Client
 
 # Controls when the workflow will run
 on:
@@ -36,15 +36,14 @@ jobs:
             sleep 10
             alias kubectl="minikube kubectl --"
             minikube kubectl -- get po -A
-            kubectl create deployment server --image=bolatahmett/todo_server:latest
+            kubectl create deployment client --image=bolatahmett/todo_client:latest
             sleep 5
-            kubectl expose deployment server --type=NodePort --port=3000
+            kubectl expose deployment client --type=NodePort --port=9000
             sleep 10
-            kubectl get services server
+            kubectl get services client
             sleep 20
             minikube kubectl -- get po -A
             sleep 5
-            kubectl port-forward service/server 3000:3000 &
+            kubectl port-forward service/client 9000:9000 &
             echo "done"
-            curl http://localhost:3000/task
             sleep 10
