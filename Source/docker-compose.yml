@@ -1,0 +1,45 @@
+version: '3.8'
+
+networks:
+    app-tier:
+      driver: bridge
+
+services:
+
+  nginx:
+    depends_on:
+      - api
+      - client
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./Nginx
+    ports:
+      - "4001:80"
+    networks:
+      - app-tier  
+
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: "./BackEnd"
+    expose:
+      - "3000"
+    networks:
+      - app-tier  
+    volumes:
+      - ./BackEnd
+
+  client:
+    stdin_open: true
+    build:
+      dockerfile: Dockerfile
+      context: ./UI
+    expose:
+      - "9000"
+    networks:
+      - app-tier  
+    volumes:
+      - /app/node_modules
+      - ./UI:/app
+    command: npm run-script run-test

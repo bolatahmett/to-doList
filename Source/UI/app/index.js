@@ -8,8 +8,9 @@ const App = () => {
 
     useEffect(() => {
         (async () => {
-            var items = await getAllItems();
-            setList(items);
+            await getAllItems().then((items) => {
+                setList(items);
+            });
         })()
 
     }, [])
@@ -21,21 +22,18 @@ const App = () => {
     const addTask = () => {
         const id = uuidv4();
         addItem({ Id: id, Task: task }).then(() => {
-            const newList = list.concat({ Id: id, Task: task, IsSelected: false });
-            setList(newList);
-            setTask('');
+            if (list) {
+                const newList = list.concat({ Id: id, Task: task, IsSelected: false });
+                setList(newList);
+                setTask('');
+            }
         }).catch(() => {
             console.log("Task can not added to the list");
         });
     }
 
-    const removeTask = () => {
-        const newList = list.filter((item) => !item.IsSelected);
-        setList(newList);
-    }
-
     const handleListItemClick = (e) => {
-        const newList = list.map((item, index) => {
+        const newList = list && list.map((item, index) => {
             if (index.toString() === e.target.getAttribute("data-index")) {
                 const updatedItem = {
                     ...item,
@@ -51,7 +49,7 @@ const App = () => {
         setList(newList);
     }
 
-    const taskList = list.map((item, index) => (
+    const taskList = list && list.map((item, index) => (
         <li className={item.IsSelected ? "selected-task-item" : "task-item"}
             data-index={index}
             key={index}
@@ -70,8 +68,6 @@ const App = () => {
                 onChange={(val) => { setTask(val.target.value) }} />
 
             <button id="addButton" onClick={addTask}> Add Button </button>
-
-            <button id="removeButton" onClick={removeTask}> Remove Button </button>
 
             <ul id="taskList">
                 {taskList}

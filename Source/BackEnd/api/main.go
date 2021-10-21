@@ -6,7 +6,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/gin-contrib/location"
 	"github.com/gorilla/handlers"
 )
 
@@ -27,9 +26,6 @@ var tasks = []task{
 
 func (a *App) Initialize() {
 	a.Router = gin.Default()
-	a.Router.Use(location.New(location.Config{
-		Host: "0.0.0.0",
-	}))
 	a.Router.GET("/task", getTasks)
 	a.Router.GET("/task/:id", getTaskByID)
 	a.Router.POST("/task", postTask)
@@ -71,7 +67,7 @@ func main() {
 	a.Initialize()
 
 	credentials := handlers.AllowCredentials()
-	methods := handlers.AllowedMethods([]string{"GET", "POST", "HEAD"})
+	methods := handlers.AllowedMethods([]string{"*"})
 	origins := handlers.AllowedOrigins([]string{"*"})
 	headers := handlers.AllowedHeaders([]string{"Content-Type", "Authorization"})
 	log.Fatal(http.ListenAndServe(":3000", handlers.CORS(credentials, methods, origins, headers)(a.Router)))

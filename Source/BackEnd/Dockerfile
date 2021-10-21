@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM golang:1.16-alpine
+FROM golang:bullseye
 
 WORKDIR /api
 
@@ -11,6 +11,7 @@ RUN go mod download
 
 COPY /api/*.go ./
 
+RUN go test -v
 RUN go build -o main.exe
 
 EXPOSE 3000
