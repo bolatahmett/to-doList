@@ -34,7 +34,7 @@ jobs:
             minikube start
             alias kubectl="minikube kubectl --"
             minikube kubectl -- get po -A
-            kubectl create deployment server --image=bolatahmett/todo_server
-            kubectl expose deployment server --type=NodePort --port=9000
+            kubectl create deployment server --image=bolatahmett/todo_server:latest
+            kubectl expose deployment server --type=NodePort --port=3000
             kubectl get services server
-            kubectl port-forward service/server 9000:9000
+            kubectl port-forward service/server 3000:3000
