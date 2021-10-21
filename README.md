@@ -1,14 +1,28 @@
 # to-do List
 
-We will Use TDD approach. Used technologies;
+We will Use TDD approach.
+
+There are two applications, a server and a client. Both applications are hosted on Aws instance with kubernates. The hosting process is as below.
+
+    1- The developer pushes her/his changes to the github repository
+    2- Running github actions
+        a- Dockerize
+            -Build and test run in dockerfile
+            -Creating docker image
+            -Upload to docher hub
+        b- Deployment
+            -Connecting the aws instance
+            -Running minikube commands and deploying docker image from hub
+
+Used technologies;
 
     Version control system: Git.
     Ui: React, nodejs, webpack, cypress 
     BackEnd: Golang
     Database: in-memory
-    Hosting: Firebase
-    Deployment: Git and Firebase
-    Kubernates Deployment: Aws ubuntu, docker hub
+    Hosting: Aws instance
+    Deployment: Git actions
+    Kubernates Deployment: Aws instance, docker hub
 
 You can access docker containers from the docker hub:
 
