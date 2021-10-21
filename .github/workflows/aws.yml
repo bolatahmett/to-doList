@@ -46,4 +46,5 @@ jobs:
             sleep 5
             kubectl port-forward service/server 3000:3000 &
             echo "done"
-            sleep 5
+            curl http://localhost:3000/task
+            sleep 10
