@@ -40,8 +40,8 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          context: ./Source/Backend
-          file: ././Source/Backend/Dockerfile
+          context: ./
+          file: ./Source/Backend/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/todo_server:latest
 
