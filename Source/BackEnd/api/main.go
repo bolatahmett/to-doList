@@ -22,6 +22,9 @@ var tasks = []task{
 	{Id: "1", Task: "Task 1"},
 	{Id: "2", Task: "Task 2"},
 	{Id: "3", Task: "Task 3"},
+	{Id: "4", Task: "Task 4"},
+	{Id: "5", Task: "Task 5"},
+	{Id: "6", Task: "Task 6"},
 }
 
 func (a *App) Initialize() {
