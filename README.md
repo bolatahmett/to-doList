@@ -1,4 +1,4 @@
-# to-do List
+# to-do List (React, Golang, Aws, Kubernates)
 
 We will use TDD approach.
 
